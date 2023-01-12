@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Game</title>
+  <style> @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); </style>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+	<script src="modules/OmegaNum.js"></script>
+</head>
+<body>
+  <div class="chicklayer">
+    <div class="title">Eggs: <span id="score">0</span></div> <br>
+    <span id="mult">x1</span> Chickens <br>
+    Amount: <span id="chickens">0</span>/<span id="coopsize">10</span> <button id="coop" onclick="Coop()">Upgrade Coop<br>Cost: <span id="coopprice">100</span> eggs</button> <br>
+    <button id="hatch" onclick="Hatch()">Egg Mode</button> <br>
+    Chance to hatch: <span id="hatchchance">10</span>%
+    <div class="upgrades">
+      <div class=title>Upgrades</div>
+      <button class="upgrade 1" onclick="Upgrade(1)">Cormfortable Nests<br>Cost: 30 eggs<br>Effect: 5% more likely to hatch an egg.</button>
+      <button class="upgrade 2" onclick="Upgrade(2)">Heat Lamps<br>Cost: 90 eggs<br>Effect: 10% more likely to hatch an egg.</button>
+      <button class="upgrade 3" onclick="Upgrade(3)">Precisely Rounded Nests<br>Cost: 150 eggs<br>Effect: 15% more likely to hatch an egg.</button>
+      <button class="upgrade 4" onclick="Upgrade(4)">Larger Incubators<br>Cost: 500 eggs<br>Effect: Hatch 3 eggs at a time instead of 1</button>
+    </div>
+  </div>
+  <div class="money">
+    <div class="title">Money: <span id="money">0</span></div> <br>
+    <button id="sell" onclick="Sell()" disabled>Sell Eggs</button> <br>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
