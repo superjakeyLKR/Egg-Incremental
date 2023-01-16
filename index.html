@@ -10,23 +10,39 @@
 	<script src="modules/OmegaNum.js"></script>
 </head>
 <body>
-  <div class="chicklayer">
+  <nav>
+    <ul>
+      <li><button id="chickbutton" class="active" onclick="Switch('chick')">Eggs</button></li>
+      <li><button id="moneybutton" onclick="Switch('money')">Money</button></li>
+      <li><button id="settingsbutton" onclick="Switch('settings')">Settings</button></li>
+    </ul>
+  </nav>
+  <div id="chick">
     <div class="title">Eggs: <span id="score">0</span></div> <br>
     <span id="mult">x1</span> Chickens <br>
-    Amount: <span id="chickens">0</span>/<span id="coopsize">10</span> <button id="coop" onclick="Coop()">Upgrade Coop<br>Cost: <span id="coopprice">100</span> eggs</button> <br>
+    Amount: <span id="chickens">1</span>/<span id="coopsize">10</span> <button id="coop" onclick="Coop()">Upgrade Coop<br>Cost: <span id="coopprice">100</span> eggs</button> <br>
     <button id="hatch" onclick="Hatch()">Egg Mode</button> <br>
     Chance to hatch: <span id="hatchchance">10</span>%
     <div class="upgrades">
       <div class=title>Upgrades</div>
-      <button class="upgrade 1" onclick="Upgrade(1)">Cormfortable Nests<br>Cost: 30 eggs<br>Effect: 5% more likely to hatch an egg.</button>
-      <button class="upgrade 2" onclick="Upgrade(2)">Heat Lamps<br>Cost: 90 eggs<br>Effect: 10% more likely to hatch an egg.</button>
-      <button class="upgrade 3" onclick="Upgrade(3)">Precisely Rounded Nests<br>Cost: 150 eggs<br>Effect: 15% more likely to hatch an egg.</button>
-      <button class="upgrade 4" onclick="Upgrade(4)">Larger Incubators<br>Cost: 500 eggs<br>Effect: Hatch 3 eggs at a time instead of 1</button>
+      <button class="upgrade c1" onclick="Upgrade('c', 1)">Cormfortable Nests<br>Cost: 30 eggs<br>Effect: 5% more likely to hatch an egg.</button>
+      <button class="upgrade c2" onclick="Upgrade('c', 2)">Heat Lamps<br>Cost: 90 eggs<br>Effect: 10% more likely to hatch an egg.</button>
+      <button class="upgrade c3" onclick="Upgrade('c', 3)">Precisely Rounded Nests<br>Cost: 150 eggs<br>Effect: 15% more likely to hatch an egg.</button>
+      <button class="upgrade c4" onclick="Upgrade('c', 4)">Larger Incubators<br>Cost: 500 eggs<br>Effect: Hatch 3 eggs at a time instead of 1</button>
+      <button class="upgrade c5" onclick="Upgrade('c', 5)">Sell Your Soul<br>Cost: 1000 eggs<br>Effect: Unlocks the ability to sell your eggs for money!</button>
     </div>
   </div>
-  <div class="money">
-    <div class="title">Money: <span id="money">0</span></div> <br>
+  <div id="money" style="display: none">
+    <div class="title">Money: <span id="monies">0</span></div> <br>
     <button id="sell" onclick="Sell()" disabled>Sell Eggs</button> <br>
+    <div class="title">Shop</div>
+    <button class="upgrade m1" onclick="Upgrade('m', 1)">Egg Doubler<br>Cost: 1 money<br>Effect: 2x multiplier to eggs.</button>
+  </div>
+  <div id="settings" style="display: none">
+    <div class="title">Settings</div> <br>
+    <button id="save" onclick="Save()">Save Game</button> <br>
+    <button id="load" onclick="Load()">Load Game</button> <br>
+    <button id="reset" onclick="Reset()">Reset Game</button> <br>
   </div>
   <script src="script.js"></script>
 </body>
