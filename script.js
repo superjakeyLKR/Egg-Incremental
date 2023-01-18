@@ -1,4 +1,4 @@
-var score = OmegaNum("1e9");
+var score = OmegaNum(0);
 var chickens = OmegaNum(1);
 var coopsize = OmegaNum(10);
 var coopprice = OmegaNum(100);
