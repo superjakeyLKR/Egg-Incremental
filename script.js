@@ -1,24 +1,59 @@
-var score = OmegaNum("1e9");
+var score = OmegaNum(0);
 var chickens = OmegaNum(1);
 var coopsize = OmegaNum(10);
 var coopprice = OmegaNum(100);
+var eggmultiplier = OmegaNum(1);
 
 var chickens_interval = setInterval(Increment, 1000);
-var inc_buff = OmegaNum(1);
 
 var hatchmode = false;
 var hatchchance = OmegaNum(10); //percent
 var hatchamount = OmegaNum(1);
-
-//cost, effect, type
-var upgradecost = [30, 90, 150, 500, 1000];
-var upgradesbought = [false, false, false, false, false];
-var moneyupgrades = [false];
-//h = hatch chance
-//a = hatch amount
-//i = interval (update rate)
-//l = layer
-
+var purchasedupgrades = [];
+const UPGRADES = {
+    1: {
+      cost: 30,
+      effect: function() {
+        hatchchance = hatchchance.plus(5);
+      },
+      currency: "eggs"
+    },
+    2: {
+      cost: 90,
+      effect: function() {
+        hatchchance = hatchchance.plus(10);
+      },
+      currency: "eggs"
+    },
+    3: {
+      cost: 150,
+      effect: function() {
+        hatchchance = hatchchance.plus(15);
+      },
+      currency: "eggs"
+    },
+    4: {
+      cost: 500,
+      effect: function() {
+        hatchamount = hatchamount.plus(2);
+      },
+      currency: "eggs"
+    },
+    5: {
+      cost: 1000,
+      effect: function() {
+        Unlock("money");
+      },
+      currency: "eggs"
+    },
+    6: {
+      cost: 1,
+      effect: function() {
+        eggmultiplier = eggmultiplier.plus(1);
+      },
+      currency: "money"
+    },
+};
 var money = OmegaNum(0);
 
 Update();
@@ -37,6 +72,34 @@ function Update() {
 	}
 }
 
+function Upgrade(id) {
+  let bought = false
+  if (purchasedupgrades.includes(id)) return;
+  switch (UPGRADES[id].currency) {
+    case "eggs":
+      if (score.gte(UPGRADES[id].cost)) {
+        score = score.sub(UPGRADES[id].cost);
+        bought = true;
+      }
+      break;
+    case "money":
+      if (money.gte(UPGRADES[id].cost)) {
+        money = money.sub(UPGRADES[id].cost);
+        bought = true;
+      } 
+      break;
+  }
+  if (bought) {
+    UPGRADES[id].effect();
+    purchasedupgrades.push(id);
+    document.getElementById("upgrade" + id).style = "background-color: green;";
+  }
+  document.getElementById("hatchchance").innerText = hatchchance.toString();
+  document.getElementById("hatchamount").innerText = hatchamount.toString();
+  document.getElementById("eggmultiplier").innerText = "x" + eggmultiplier.toString();
+  document.getElementById("monies").innerText = money.toString();
+}
+
 function Save() {
   localStorage.setItem("score", score.toString());
   localStorage.setItem("chickens", chickens.toString());
@@ -44,9 +107,8 @@ function Save() {
   localStorage.setItem("coopprice", coopprice.toString());
   localStorage.setItem("hatchmode", hatchmode.toString());
   localStorage.setItem("money", money.toString());
-  localStorage.setItem("upgradesbought", upgradesbought.toString());
-  localStorage.setItem("moneyupgrades", moneyupgrades.toString());
-  localStorage.setItem("inc_buff", inc_buff.toString());
+  localStorage.setItem("egg_multiplier", eggmultiplier.toString());
+  localStorage.setItem("purchased_upgrades", purchasedupgrades.toString());
   document.getElementById("save").innerText = "Saved!";
   setTimeout(function() {
     document.getElementById("save").innerText = "Save Game";
@@ -60,9 +122,8 @@ function Load() {
   coopprice = OmegaNum(localStorage.getItem("coopprice"));
   hatchmode = localStorage.getItem("hatchmode") == "true";
   money = OmegaNum(localStorage.getItem("money"));
-  upgradesbought = localStorage.getItem("upgradesbought").split(",");
-  moneyupgrades = localStorage.getItem("moneyupgrades").split(",");
-  inc_buff = OmegaNum(localStorage.getItem("inc_buff"));
+  eggmultiplier = OmegaNum(localStorage.getItem("egg_multiplier"));
+  purchasedupgrades = localStorage.getItem("purchased_upgrades").split(",");
   document.getElementById("coopsize").innerText = coopsize.toString();
   document.getElementById("coopprice").innerText = coopprice.toString();
   if (hatchmode) {
@@ -77,11 +138,6 @@ function Load() {
   setTimeout(function() {
     document.getElementById("load").innerText = "Load Game";
   }, 1000);
-  for (var i = 0; i < upgradesbought.length; i++) {
-    if (upgradesbought[i] == "true") {
-      Upgrade("c", i, true);
-    }
-  }
 }
 
 function Reset() {
@@ -89,15 +145,24 @@ function Reset() {
   chickens = OmegaNum(1);
   coopsize = OmegaNum(10);
   coopprice = OmegaNum(100);
+  eggmultiplier = OmegaNum(1);
   hatchmode = false;
   hatchchance = OmegaNum(10);
   hatchamount = OmegaNum(1);
-  upgradesbought = [false, false, false, false, false];
-  moneyupgrades = [false];
+  ResetUpgrades();
+  purchasedupgrades = [];
   money = OmegaNum(0);
+
+  document.getElementById("moneybutton").style = "display: none;";
+
   Update();
 }
 
+function ResetUpgrades() {
+  for (var i = 0; i < purchasedupgrades.length; i++) {
+    document.getElementById("upgrade" + purchasedupgrades[i]).style = "background-color: #2e2380;";
+  }
+}
 function Increment() {
   if (hatchmode) {
     for (var i = 0; i < hatchamount; i++) {
@@ -118,9 +183,7 @@ function Increment() {
     }
   }
   else {
-    let mult = OmegaNum(1);
-    if (moneyupgrades[0]) mult = mult.plus(1);
-    score = score.add(chickens).mul(mult);
+    score = score.plus(chickens.mul(eggmultiplier));
   }
   Update();
 }
@@ -145,52 +208,13 @@ function Hatch() {
   }
 }
 
-function Upgrade(layer, num, free=false) {
-  num -= 1;
-  let bought = false;
-	switch (layer) {
-    case "c": //chicken upgrades
-      if ((score.gte(upgradecost[num]) && !upgradesbought[num]) || free) {
-        bought = true;
-        score = score.sub(upgradecost[num]);
-        upgradesbought[num] = true;
-        UpgradeEffect(layer, num);
-      }
-    }
-  if (bought) {
-    num += 1;
-    document.getElementsByClassName(layer + num)[0].style = "background-color: green";
-  }
-}
-
-function UpgradeEffect(layer, num) {
-  switch (layer) {
-    case "c": //chicken upgrades
-      switch (num) {
-        case 0, 1, 2:
-          hatchchance = hatchchance.plus((num + 1) * 5);
-          document.getElementById("hatchchance").innerText = hatchchance.toString();
-          break;
-        case 3:
-          hatchamount = hatchamount.plus(2);
-          break;
-        case 4:
-          Unlock("money");
-          break;
-      }
-    case "m": //money upgrades
-      switch (num) {
-        //0 is handled
-        default:
-          break;
-      }
-    }
-}
-
 function Sell() {
   //money = 1000 eggs
   money = money.add(score.div(1000).floor());
   score = OmegaNum(0);
+  chickens = OmegaNum(1);
+  ResetUpgrades();
+  purchasedupgrades = [];
   document.getElementById("monies").innerText = money.toString();
   Update();
 }
