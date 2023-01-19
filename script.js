@@ -11,42 +11,42 @@ var hatchchance = OmegaNum(10); //percent
 var hatchamount = OmegaNum(1);
 var purchasedupgrades = [];
 const UPGRADES = {
-    1: {
+    "e1": {
       cost: 30,
       effect: function() {
         hatchchance = hatchchance.plus(5);
       },
       currency: "eggs"
     },
-    2: {
+    "e2": {
       cost: 90,
       effect: function() {
         hatchchance = hatchchance.plus(10);
       },
       currency: "eggs"
     },
-    3: {
+    "e3": {
       cost: 150,
       effect: function() {
         hatchchance = hatchchance.plus(15);
       },
       currency: "eggs"
     },
-    4: {
+    "e4": {
       cost: 500,
       effect: function() {
         hatchamount = hatchamount.plus(2);
       },
       currency: "eggs"
     },
-    5: {
+    "e5": {
       cost: 1000,
       effect: function() {
         Unlock("money");
       },
       currency: "eggs"
     },
-    6: {
+    "m1": {
       cost: 1,
       effect: function() {
         eggmultiplier = eggmultiplier.plus(1);
