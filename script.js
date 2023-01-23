@@ -53,6 +53,29 @@ const UPGRADES = {
       },
       currency: "money"
     },
+    "m2": {
+      cost: 5,
+      effect: function() {}, //Effect is handled in the Increment function
+      currency: "money"
+    },
+    "m3": {
+      cost: 10,
+      effect: function() {
+        hatchchance = hatchchance.plus(3);
+      },
+      currency: "money"
+    },
+    "m4": {
+      cost: 50,
+      effect: function() {
+        if (purchasedupgrades.includes("m1")) {
+          eggmultiplier = eggmultiplier.mult(3);
+        } else {
+          eggmultiplier = eggmultiplier.add(2);
+        }
+      },
+      currency: "money"
+    },
 };
 var money = OmegaNum(0);
 
@@ -183,7 +206,10 @@ function Increment() {
     }
   }
   else {
-    score = score.plus(chickens.mul(eggmultiplier));
+    let actives = OmegaNum(1);
+    if (purchasedupgrades.includes("m4")) actives.plus(money.add(1).mul(3).sqrt());
+    else if (purchasedupgrades.includes("m2")) actives.plus(money.add(1).sqrt());
+    score = score.plus(chickens.mul(eggmultiplier).mul(actives));
   }
   Update();
 }
@@ -216,6 +242,7 @@ function Sell() {
   ResetUpgrades();
   purchasedupgrades = [];
   document.getElementById("monies").innerText = money.toString();
+  document.getElementById("m2effect").innerText = money.add(1).sqrt();
   Update();
 }
 
