@@ -1,4 +1,4 @@
-var score = OmegaNum(0);
+var score = OmegaNum(1);
 var chickens = OmegaNum(1);
 var coopsize = OmegaNum(10);
 var coopprice = OmegaNum(100);
@@ -61,7 +61,7 @@ const UPGRADES = {
     "m3": {
       cost: 10,
       effect: function() {
-        hatchchance = hatchchance.plus(3);
+        hatchchance = hatchchance.plus(30);
       },
       currency: "money"
     },
@@ -69,7 +69,7 @@ const UPGRADES = {
       cost: 50,
       effect: function() {
         if (purchasedupgrades.includes("m1")) {
-          eggmultiplier = eggmultiplier.mult(3);
+          eggmultiplier = eggmultiplier.mul(3);
         } else {
           eggmultiplier = eggmultiplier.add(2);
         }
@@ -173,7 +173,6 @@ function Reset() {
   hatchchance = OmegaNum(10);
   hatchamount = OmegaNum(1);
   ResetUpgrades();
-  purchasedupgrades = [];
   money = OmegaNum(0);
 
   document.getElementById("moneybutton").style = "display: none;";
@@ -185,6 +184,7 @@ function ResetUpgrades() {
   for (var i = 0; i < purchasedupgrades.length; i++) {
     document.getElementById("upgrade" + purchasedupgrades[i]).style = "background-color: #2e2380;";
   }
+  purchasedupgrades = [];
 }
 function Increment() {
   if (hatchmode) {
@@ -199,6 +199,7 @@ function Increment() {
         document.getElementById("chickens").innerText = chickens.toString();
         if (chickens.gt(coopsize)) {
           chickens = coopsize
+          document.getElementById("chickens").innerText = chickens.toString();
           Hatch();
           return;
         }
@@ -207,8 +208,8 @@ function Increment() {
   }
   else {
     let actives = OmegaNum(1);
-    if (purchasedupgrades.includes("m4")) actives.plus(money.add(1).mul(3).sqrt());
-    else if (purchasedupgrades.includes("m2")) actives.plus(money.add(1).sqrt());
+    if (purchasedupgrades.includes("m4") & purchasedupgrades.includes("m2")) actives = actives.plus(money.add(1).sqrt().mul(3).round());
+    else if (purchasedupgrades.includes("m2")) actives = actives.plus(money.add(1).sqrt().round());
     score = score.plus(chickens.mul(eggmultiplier).mul(actives));
   }
   Update();
@@ -239,10 +240,20 @@ function Sell() {
   money = money.add(score.div(1000).floor());
   score = OmegaNum(0);
   chickens = OmegaNum(1);
-  ResetUpgrades();
-  purchasedupgrades = [];
   document.getElementById("monies").innerText = money.toString();
-  document.getElementById("m2effect").innerText = money.add(1).sqrt();
+  if (purchasedupgrades.includes("m4")) {
+    let effect = money.add(1).sqrt().mul(3).round();
+    if (effect.gte(3000000)) {
+      effect = "3e6 (SOFTCAPPED)";
+    }
+    document.getElementById("m2effect").innerText = effect
+  } else {
+    let effect = money.add(1).sqrt().round();
+    if (effect.gte(1000000)) {
+      effect = "1e6 (SOFTCAPPED)";
+    }
+    document.getElementById("m2effect").innerText = effect
+  }
   Update();
 }
 
@@ -250,11 +261,13 @@ function Switch(layer) {
   document.getElementById("chick").style = "display: none;";
   document.getElementById("money").style = "display: none;";
   document.getElementById("settings").style = "display: none;";
+  document.getElementById("achievements").style = "display: none;";
   document.getElementById(layer).style = "display: block;";
 
   document.getElementById("chickbutton").classList.remove("active");
   document.getElementById("moneybutton").classList.remove("active");
   document.getElementById("settingsbutton").classList.remove("active");
+  document.getElementById("achievementsbutton").classList.remove("active");
   document.getElementById(layer + "button").classList.add("active");
 }
 

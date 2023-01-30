@@ -1,5 +1,7 @@
 # Layer 0: Eggs
 Basic Layer
+# Not actually a layer: Achievements
+Used to get meaningless milestones. Also used to get more eggs
 # Layer 1: Money 
 Used to buy some other layers and other things
 # Layer 2: Time Boosters

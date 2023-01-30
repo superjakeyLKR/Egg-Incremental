@@ -14,6 +14,7 @@
     <ul>
       <li><button id="chickbutton" class="active" onclick="Switch('chick')">Eggs</button></li>
       <li><button id="moneybutton" onclick="Switch('money')">Money</button></li>
+      <li><button id="achievementsbutton" onclick="Switch('achievements')">Achievements</button></li>
       <li><button id="settingsbutton" onclick="Switch('settings')">Settings</button></li>
     </ul>
   </nav>
@@ -35,13 +36,35 @@
   </div>
   <div id="money" style="display: none">
     <div class="title">Money: <span id="monies">0</span></div>
-    <p style="color: red;font-size: small;">NOTE: This resets your eggs, chickens and upgrades when you buy it.</p>
+    <p style="color: red;font-size: small;">NOTE: This resets your eggs and chickens when you buy it.</p>
     <button id="sell" onclick="Sell()" disabled>Sell Eggs</button> <br>
     <div class="title">Shop</div>
     <button id="upgradem1" onclick="Upgrade('m1')">Egg Doubler<br>Cost: 1 money<br>Effect: 2x multiplier to eggs.</button>
     <button id="upgradem2" onclick="Upgrade('m2')">Hardworking Chickens<br>Cost: 5 money<br>Effect: Gain a boost to egg generation based on money. Currently: x<span id="m2effect">1</span></button>
     <button id="upgradem3" onclick="Upgrade('m3')">Golden Incubators<br>Cost: 10 money<br>Effect: 30% more likely to hatch an egg.</button>
     <button id="upgradem4" onclick="Upgrade('m4')">Egg Factory<br>Cost: 50 money<br>Effect: 3x multiplier to eggs AND the 2nd upgrade formula.</button>
+  </div>
+  <div id="achievements" style="display: none">
+    <div class="title">Achievements</div>
+    <div class="achievement-container">
+      <div class="achievement-block">
+        <div class="achievement-icon" style="background-image: url(img/10.webp)"></div>
+        <div class="achievement-tooltip">Have 10 chickens.</div>
+      </div>
+      <div class="achievement-block">
+        <div class="achievement-icon"></div>
+        <div class="achievement-tooltip">Upgrade your coop.</div>
+      </div>
+      <div class="achievement-block">
+        <div class="achievement-icon"></div>
+        <div class="achievement-tooltip">Buy all of the egg upgrades.</div>
+      </div>
+      <div class="achievement-block">
+        <div class="achievement-icon"></div>
+        <div class="achievement-tooltip">Get 1 money.</div>
+      </div>
+      <!-- Add more achievement-block elements here -->
+    </div>
   </div>
   <div id="settings" style="display: none">
     <div class="title">Settings</div> <br>

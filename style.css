@@ -78,7 +78,7 @@ nav ul {
   list-style: none;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin: 0;
   padding: 0;
 }
@@ -114,4 +114,44 @@ nav button:active {
 }
 #moneybutton {
   display: none;
+}
+/* achievements 'n' stuff */
+.achievement-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+
+.achievement-block {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+}
+
+.achievement-icon {
+  width: 50px;
+  height: 50px;
+  background-color: #ccc;
+  background-size: cover;
+}
+
+.achievement-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  background-color: #000;
+  color: #fff;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.achievement-block:hover .achievement-tooltip {
+  visibility: visible;
+  opacity: 1;
 }
