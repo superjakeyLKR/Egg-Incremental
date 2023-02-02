@@ -189,15 +189,15 @@ function ResetUpgrades() {
 function Increment() {
   if (hatchmode) {
     for (var i = 0; i < hatchamount; i++) {
-      if (score.sub(hatchamount).lt(0)) {
+      if (score.sub(1).lt(0)) {
         Hatch();
         return;
       }
-      score = score.sub(hatchamount);
+      score = score.sub(1);
       if (Math.floor(Math.random() * 100) <= hatchchance) {//0-99 
         chickens = chickens.add(1)
         document.getElementById("chickens").innerText = chickens.toString();
-        if (chickens.gt(coopsize)) {
+        if (chickens.gte(coopsize)) {
           chickens = coopsize
           document.getElementById("chickens").innerText = chickens.toString();
           Hatch();
