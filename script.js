@@ -93,6 +93,12 @@ function Update() {
 	if (Math.floor(Math.random() * 100000) == 777) {
 		document.title = "I SEE YOU";
 	}
+  //achievements
+  if (chickens.gte(10)) {
+    Achieve(1);
+  } else if (purchasedupgrades.includes("e5")) {
+    Achieve(3);
+  }
 }
 
 function Upgrade(id) {
@@ -222,6 +228,7 @@ function Coop() {
     coopprice = coopprice.mul(5);
     document.getElementById("coopsize").innerText = coopsize.toString();
     document.getElementById("coopprice").innerText = coopprice.toString();
+    Achieve(2);
   }
 }
 
@@ -254,6 +261,7 @@ function Sell() {
     }
     document.getElementById("m2effect").innerText = effect
   }
+  Achieve(4);
   Update();
 }
 
@@ -273,4 +281,12 @@ function Switch(layer) {
 
 function Unlock(layer) {
   document.getElementById(layer + "button").style = "display: block;";
+}
+
+function Achieve(num) {
+  num -= 1;
+  const achievementBlocks = document.querySelectorAll(".achievement-block");
+  if (num >= 0 && num < achievementBlocks.length) {
+    achievementBlocks[num].classList.add("earned");
+  }
 }

@@ -138,6 +138,18 @@ nav button:active {
   background-size: cover;
 }
 
+.achievement-icon::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 105, 0, 0.5);
+  visibility: hidden;
+}
+
 .achievement-tooltip {
   position: absolute;
   bottom: 100%;
@@ -154,4 +166,8 @@ nav button:active {
 .achievement-block:hover .achievement-tooltip {
   visibility: visible;
   opacity: 1;
+}
+
+.earned .achievement-icon::after {
+  visibility: visible;
 }
