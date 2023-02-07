@@ -4,7 +4,7 @@ Basic Layer
 Used to get meaningless milestones. Also used to get more eggs
 # Layer 1: Money 
 Used to buy some other layers and other things
-# Layer 2: Time Boosters
+# Layer 2: Time Boosters (or Time Expanders or Time Accelerators or Time Magnifiers I CAN'T DECIDE HELP)
 Used to speed up the update rate
 # Layer 3 (kinda): The Arcade
 Used to play fun minigames and totally not to rip of other 
