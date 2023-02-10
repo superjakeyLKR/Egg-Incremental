@@ -73,6 +73,12 @@ button:active {
   background-color: #3e8e41;
   transform: scale(0.95);
 }
+
+#timeboost {
+  font-size: 1.3em;
+  color: #4CAF50;
+  text-shadow: 0px 0px 10px #4CAF50;
+}
 /* the funny */
 nav ul {
   list-style: none;

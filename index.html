@@ -14,6 +14,7 @@
     <ul>
       <li><button id="chickbutton" class="active" onclick="Switch('chick')">Eggs</button></li>
       <li><button id="moneybutton" onclick="Switch('money')">Money</button></li>
+      <li><button id="timebutton" onclick="Switch('time')">Time</button></li>
       <li><button id="achievementsbutton" onclick="Switch('achievements')">Achievements</button></li>
       <li><button id="settingsbutton" onclick="Switch('settings')">Settings</button></li>
     </ul>
@@ -43,6 +44,12 @@
     <button id="upgradem2" onclick="Upgrade('m2')">Hardworking Chickens<br>Cost: 5 money<br>Effect: Gain a boost to egg generation based on money. Currently: x<span id="m2effect">1</span></button>
     <button id="upgradem3" onclick="Upgrade('m3')">Golden Incubators<br>Cost: 10 money<br>Effect: 30% more likely to hatch an egg.</button>
     <button id="upgradem4" onclick="Upgrade('m4')">Egg Factory<br>Cost: 50 money<br>Effect: 3x multiplier to eggs AND the 2nd upgrade formula.</button>
+  </div>
+  <div id="time" style="display: none">
+    <div class="title">Time Magnifiers: <span id="magnifiers">0</span></div>
+    <p>Which are being magnifying time by x<span id="timeboost">1</span></p>
+    <div class="title">Minitrembles: <span id="minitrembles">0</span></div>
+    <p>Which are boosting egg gain by 2^<span id="minitrembleboost">0</span> (x<span id="trembleeffect">1</span>)</div>
   </div>
   <div id="achievements" style="display: none">
     <div class="title" style="margin-bottom: 35px">Achievements</div>
