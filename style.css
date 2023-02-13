@@ -118,7 +118,7 @@ nav button:active {
   color: #fff;
   box-shadow: 0px 0px 10px #ccc;
 }
-#moneybutton {
+#moneybutton, #timebutton {
   display: none;
 }
 /* achievements 'n' stuff */

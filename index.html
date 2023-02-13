@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
@@ -9,7 +8,7 @@
   <link href="style.css" rel="stylesheet" type="text/css" />
 	<script src="modules/OmegaNum.js"></script>
 </head>
-<body>
+<body onload="Load()">
   <nav>
     <ul>
       <li><button id="chickbutton" class="active" onclick="Switch('chick')">Eggs</button></li>
@@ -33,6 +32,11 @@
       <button id="upgradee3" onclick="Upgrade('e3')">Precisely Rounded Nests<br>Cost: 150 eggs<br>Effect: 15% more likely to hatch an egg.</button>
       <button id="upgradee4" onclick="Upgrade('e4')">Larger Incubators<br>Cost: 500 eggs<br>Effect: Hatch 3 eggs at a time instead of 1</button>
       <button id="upgradee5" onclick="Upgrade('e5')">Sell Your Soul<br>Cost: 1000 eggs<br>Effect: Unlocks the ability to sell your eggs for money!</button>
+      <button id="upgradee6" onclick="Upgrade('e6')" style="display: none">Dozen-inator<br>Cost: 2000 eggs<br>Effect: Hatch nine more eggs at a time.</button>
+      <button id="upgradee7" onclick="Upgrade('e7')" style="display: none">Extortionate<br>Cost: 5000 eggs<br>Effect: Eggs sell for twice as much.</button>
+      <button id="upgradee8" onclick="Upgrade('e8')" style="display: none">Egg Factory<br>Cost: 10000 eggs<br>Effect: Hatch 20 more eggs at a time.</button>
+      <button id="upgradee9" onclick="Upgrade('e9')" style="display: none">More Comfortable Nests<br>Cost: 15000 eggs<br>Effect: 30% more likely to hatch an egg.</button>
+      <button id="upgradee10" onclick="Upgrade('e10')" style="display: none">Time Manipulation<br>Cost: 20000 eggs<br>Effect: Unlock the ability to warp time. Time goes by 2x as fast</button>
     </div>
   </div>
   <div id="money" style="display: none">
@@ -47,8 +51,10 @@
   </div>
   <div id="time" style="display: none">
     <div class="title">Time Magnifiers: <span id="magnifiers">0</span></div>
-    <p>Which are being magnifying time by x<span id="timeboost">1</span></p>
+    <p>Which are magnifying time by x<span id="timeboost">1</span></p>
+    <button id="timewarp" onclick="Warp()">Time Warp</button>
     <div class="title">Minitrembles: <span id="minitrembles">0</span></div>
+    <p>Are being produced by your time magnifiers at a rate of <span id="tremblerate">0</span>/s</p>
     <p>Which are boosting egg gain by 2^<span id="minitrembleboost">0</span> (x<span id="trembleeffect">1</span>)</div>
   </div>
   <div id="achievements" style="display: none">
@@ -69,6 +75,18 @@
       <div class="achievement-block">
         <div class="achievement-icon"></div>
         <div class="achievement-tooltip">Get 1 money. Effect: More upgrades!</div>
+      </div>
+      <div class="achievement-block">
+        <div class="achievement-icon"></div>
+        <div class="achievement-tooltip">Have a 100% hatch chance</div>
+      </div>
+      <div class="achievement-block">
+        <div class="achievement-icon"></div>
+        <div class="achievement-tooltip">Have 111 chickens.</div>
+      </div>
+      <div class="achievement-block">
+        <div class="achievement-icon"></div>
+        <div class="achievement-tooltip">Buy all of the new upgrades.</div>
       </div>
       <!-- Add more achievement-block elements here -->
     </div>
